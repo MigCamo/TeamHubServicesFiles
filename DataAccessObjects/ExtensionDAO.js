@@ -1,5 +1,5 @@
 const { where } = require('sequelize');
-const { extension } = require('../Models/index');
+const { extension } = require('../Models');
 
 class ExtensionDAO{
     
@@ -13,6 +13,7 @@ class ExtensionDAO{
         const extensionDB = await extension.findOne({
             where : {Extension: extensionAux}
         });
+
         if (extensionDB){
             result = extensionDB.IdExtension;
         }

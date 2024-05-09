@@ -25,7 +25,7 @@ client.waitForReady(deadline, (err) => {
 });
 
 function onClientReady(){
-    const file = "./Plantilla-Casos-de-Uso-2024.docx";
+    const file = "./CU.docx";
     dividirArchivo(file, (err,data) => {
         if (err) {
             console.error(err);

@@ -1,4 +1,4 @@
-const { document } = require('../Models/index');
+const { document } = require('../Models');
 
 class FileDAO {
     static async saveNewFile(file) {

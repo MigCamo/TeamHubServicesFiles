@@ -1,4 +1,5 @@
 var DataTypes = require("sequelize").DataTypes;
+var _curso = require("./curso");
 var _document = require("./document");
 var _extension = require("./extension");
 var _project = require("./project");
@@ -6,10 +7,11 @@ var _projectdocument = require("./projectdocument");
 var _projectstudent = require("./projectstudent");
 var _projecttask = require("./projecttask");
 var _student = require("./student");
-var _tasks = require("./tasks");
+var _task = require("./task");
 var _taskstudent = require("./taskstudent");
 
 function initModels(sequelize) {
+  var curso = _curso(sequelize, DataTypes);
   var document = _document(sequelize, DataTypes);
   var extension = _extension(sequelize, DataTypes);
   var project = _project(sequelize, DataTypes);
@@ -17,7 +19,7 @@ function initModels(sequelize) {
   var projectstudent = _projectstudent(sequelize, DataTypes);
   var projecttask = _projecttask(sequelize, DataTypes);
   var student = _student(sequelize, DataTypes);
-  var tasks = _tasks(sequelize, DataTypes);
+  var task = _task(sequelize, DataTypes);
   var taskstudent = _taskstudent(sequelize, DataTypes);
 
   projectdocument.belongsTo(document, { as: "IdDocument_document", foreignKey: "IdDocument"});
@@ -32,12 +34,13 @@ function initModels(sequelize) {
   student.hasMany(projectstudent, { as: "projectstudents", foreignKey: "IdStudent"});
   taskstudent.belongsTo(student, { as: "IdStudent_student", foreignKey: "IdStudent"});
   student.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdStudent"});
-  projecttask.belongsTo(tasks, { as: "IdTask_task", foreignKey: "IdTask"});
-  tasks.hasMany(projecttask, { as: "projecttasks", foreignKey: "IdTask"});
-  taskstudent.belongsTo(tasks, { as: "IdTask_task", foreignKey: "IdTask"});
-  tasks.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdTask"});
+  projecttask.belongsTo(task, { as: "IdTask_task", foreignKey: "IdTask"});
+  task.hasMany(projecttask, { as: "projecttasks", foreignKey: "IdTask"});
+  taskstudent.belongsTo(task, { as: "IdTask_task", foreignKey: "IdTask"});
+  task.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdTask"});
 
   return {
+    curso,
     document,
     extension,
     project,
@@ -45,7 +48,7 @@ function initModels(sequelize) {
     projectstudent,
     projecttask,
     student,
-    tasks,
+    task,
     taskstudent,
   };
 }
