@@ -1,54 +1,48 @@
 var DataTypes = require("sequelize").DataTypes;
-var _curso = require("./curso");
 var _document = require("./document");
 var _extension = require("./extension");
 var _project = require("./project");
-var _projectdocument = require("./projectdocument");
 var _projectstudent = require("./projectstudent");
-var _projecttask = require("./projecttask");
 var _student = require("./student");
-var _task = require("./task");
+var _studentsession = require("./studentsession");
+var _tasks = require("./tasks");
 var _taskstudent = require("./taskstudent");
 
 function initModels(sequelize) {
-  var curso = _curso(sequelize, DataTypes);
   var document = _document(sequelize, DataTypes);
   var extension = _extension(sequelize, DataTypes);
   var project = _project(sequelize, DataTypes);
-  var projectdocument = _projectdocument(sequelize, DataTypes);
   var projectstudent = _projectstudent(sequelize, DataTypes);
-  var projecttask = _projecttask(sequelize, DataTypes);
   var student = _student(sequelize, DataTypes);
-  var task = _task(sequelize, DataTypes);
+  var studentsession = _studentsession(sequelize, DataTypes);
+  var tasks = _tasks(sequelize, DataTypes);
   var taskstudent = _taskstudent(sequelize, DataTypes);
 
-  projectdocument.belongsTo(document, { as: "IdDocument_document", foreignKey: "IdDocument"});
-  document.hasMany(projectdocument, { as: "projectdocuments", foreignKey: "IdDocument"});
-  projectdocument.belongsTo(project, { as: "IdProject_project", foreignKey: "IdProject"});
-  project.hasMany(projectdocument, { as: "projectdocuments", foreignKey: "IdProject"});
+  document.belongsTo(extension, { as: "Extension_extension", foreignKey: "Extension"});
+  extension.hasMany(document, { as: "documents", foreignKey: "Extension"});
+  document.belongsTo(project, { as: "IdProject_project", foreignKey: "IdProject"});
+  project.hasMany(document, { as: "documents", foreignKey: "IdProject"});
   projectstudent.belongsTo(project, { as: "IdProject_project", foreignKey: "IdProject"});
   project.hasMany(projectstudent, { as: "projectstudents", foreignKey: "IdProject"});
-  projecttask.belongsTo(project, { as: "IdProject_project", foreignKey: "IdProject"});
-  project.hasMany(projecttask, { as: "projecttasks", foreignKey: "IdProject"});
+  tasks.belongsTo(project, { as: "IdProject_project", foreignKey: "IdProject"});
+  project.hasMany(tasks, { as: "tasks", foreignKey: "IdProject"});
   projectstudent.belongsTo(student, { as: "IdStudent_student", foreignKey: "IdStudent"});
   student.hasMany(projectstudent, { as: "projectstudents", foreignKey: "IdStudent"});
+  studentsession.belongsTo(student, { as: "IdStudent_student", foreignKey: "IdStudent"});
+  student.hasMany(studentsession, { as: "studentsessions", foreignKey: "IdStudent"});
   taskstudent.belongsTo(student, { as: "IdStudent_student", foreignKey: "IdStudent"});
   student.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdStudent"});
-  projecttask.belongsTo(task, { as: "IdTask_task", foreignKey: "IdTask"});
-  task.hasMany(projecttask, { as: "projecttasks", foreignKey: "IdTask"});
-  taskstudent.belongsTo(task, { as: "IdTask_task", foreignKey: "IdTask"});
-  task.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdTask"});
+  taskstudent.belongsTo(tasks, { as: "IdTask_task", foreignKey: "IdTask"});
+  tasks.hasMany(taskstudent, { as: "taskstudents", foreignKey: "IdTask"});
 
   return {
-    curso,
     document,
     extension,
     project,
-    projectdocument,
     projectstudent,
-    projecttask,
     student,
-    task,
+    studentsession,
+    tasks,
     taskstudent,
   };
 }

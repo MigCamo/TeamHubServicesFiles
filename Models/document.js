@@ -17,11 +17,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     Extension: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true,
+      references: {
+        model: 'extension',
+        key: 'IdExtension'
+      }
     },
     IdProject: {
-      type: DataTypes.STRING(45),
-      allowNull: true
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'project',
+        key: 'IdProject'
+      }
     }
   }, {
     sequelize,
@@ -34,6 +42,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "IdDocument" },
+        ]
+      },
+      {
+        name: "document_extension_idx",
+        using: "BTREE",
+        fields: [
+          { name: "Extension" },
+        ]
+      },
+      {
+        name: "document_project_idx",
+        using: "BTREE",
+        fields: [
+          { name: "IdProject" },
         ]
       },
     ]

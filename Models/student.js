@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     Password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(200),
       allowNull: true
     },
     ProDocumentImage: {

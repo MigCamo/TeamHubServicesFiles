@@ -1,31 +1,39 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('taskstudent', {
-    IdTaskStudent: {
+  return sequelize.define('studentsession', {
+    Id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    IdTask: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tasks',
-        key: 'IdTask'
-      }
-    },
     IdStudent: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'student',
         key: 'IdStudent'
       }
+    },
+    StartDate: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    EndDate: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    IPAdress: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
+    Token: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'taskstudent',
+    tableName: 'studentsession',
     timestamps: false,
     indexes: [
       {
@@ -33,18 +41,11 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "IdTaskStudent" },
+          { name: "Id" },
         ]
       },
       {
-        name: "IdTask",
-        using: "BTREE",
-        fields: [
-          { name: "IdTask" },
-        ]
-      },
-      {
-        name: "IdStudent",
+        name: "session_student_idx",
         using: "BTREE",
         fields: [
           { name: "IdStudent" },

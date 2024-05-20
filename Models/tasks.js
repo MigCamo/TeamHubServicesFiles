@@ -22,6 +22,14 @@ module.exports = function(sequelize, DataTypes) {
     EndDate: {
       type: DataTypes.DATEONLY,
       allowNull: true
+    },
+    IdProject: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'project',
+        key: 'IdProject'
+      }
     }
   }, {
     sequelize,
@@ -34,6 +42,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "IdTask" },
+        ]
+      },
+      {
+        name: "task_project_idx",
+        using: "BTREE",
+        fields: [
+          { name: "IdProject" },
         ]
       },
     ]
