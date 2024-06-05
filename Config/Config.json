@@ -3,24 +3,24 @@
     "username": "root",
     "password": "1234",
     "database": "teamhub_db",
-    "host": "localhost",
+    "host": "172.16.0.8",
     "dialect": "mysql",
-    "port": "3309"
+    "port": "3306"
   },
   "test": {
     "username": "root",
     "password": "1234",
     "database": "teamhub_db",
-    "host": "localhost",
+    "host": "172.16.0.8",
     "dialect": "mysql",
-    "port": "3309"
+    "port": "3306"
   },
   "production": {
     "username": "root",
     "password": "1234",
     "database": "teamhub_db",
-    "host": "localhost",
+    "host": "172.16.0.8",
     "dialect": "mysql",
-    "port": "3309"
+    "port": "3306"
   }
 }
